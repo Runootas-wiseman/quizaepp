@@ -1,0 +1,112 @@
+// namespace Questions = 
+//     // let total  = 0
+//     function getTotalUsers(total : int)  = 
+//         total += 1
+        
+
+
+
+payable contract Quiz = 
+
+// Declaring types
+    type i =  int
+    type s = string
+    type a =  address
+    type b = bool
+
+// Record to store a user
+    record user = {
+        id : i,
+        owner : a,
+        name : s,
+        email : s,
+        score : i,
+        password : s,
+        takenCourse : b}
+
+    record state = {
+        // Mapping users to an int
+        usersById : map(i,user),
+
+        // mapping users to a string
+        usersByName : map(s,user),
+        
+        // total amount of users
+        total : i}
+
+
+
+    entrypoint init() ={usersById = {}, usersByName = {}, total =0}
+
+
+    // returns total number of users
+    private function getTotalUsers() =
+        state.total
+
+    // Register to take the quiz
+    stateful entrypoint addUser(_name,_email,_password) =
+    
+
+        let newUser = {
+            owner = Call.caller,
+            id = getTotalUsers()+1, 
+            name = _name,
+            email = _email,
+            password = _password,
+            score  = 0 ,
+            takenCourse = false}
+
+
+        let index = getTotalUsers() + 1
+
+        let owner = Call.caller
+        put(state{usersById[index] = newUser, usersByName[_name] = newUser, total = index})
+
+    // Get a user by id
+    entrypoint getUser(id : i) =
+        switch(Map.lookup(id, state.usersById))
+            None => abort("invalid username or password")
+            Some(x) => x
+
+    // get a user by Name
+    entrypoint getUserByName(userName : s) =
+        switch(Map.lookup(userName, state.usersByName))
+            None => abort("invalid user")
+            Some(x) => x
+
+
+    // Update the users score
+    stateful entrypoint updateScore( index : i, _score : i) =
+
+        
+        let user = getUser(index)
+        let name = user.name
+        require(!user.takenCourse  == false , "You cannot take course more that once" )
+        put(state{usersById[index].score = _score, usersByName[name].score = _score })
+
+
+    // Allows users to take the quiz
+    stateful entrypoint takeCourse(index : i) =
+        
+        let user = getUser(index)
+        require(user.takenCourse  == false, "You cannot take course more that once" )
+        let name = user.name
+       
+        let userAddress = Call.caller
+
+        put(state{usersById[index].takenCourse = true , usersByName[name].takenCourse = true})
+
+
+
+
+
+    
+ 
+        
+           
+
+
+
+
+
+

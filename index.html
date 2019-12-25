@@ -1,0 +1,164 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Ninja Quiz</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="stylesheet" href="assets/css/form.css">
+  <link rel="stylesheet" href="assets/css/scrollbar.css">
+  <link rel="stylesheet" href="assets/css/loader.css">
+</head>
+<body>
+
+  <!-- top section -->
+
+  <div id="scrollbar">
+  <div class="intro py-3 bg-white text-center">
+    <div class="container">
+      <h2 class="text-danger display-3 my-4">Blockchain Quiz</h2>
+    </div>
+  </div>
+  <!-- Loading animation -->
+  <div class="loading" id="loader">Loading&#8230;</div>
+
+
+
+  <div id="register">
+
+    <form id="form1">
+      <fieldset>
+        <legend>Sign Up</legend>
+        <ul>
+          <li>
+            <label for="user">Enter your email address</label>
+            <input type="email" name="user" id="mail" placeholder="user@email.com" required>
+            <span class='feedback'></span>
+          </li>
+
+          <li>
+            <label for="user">Enter your name</label>
+            <input type="text" name="name" id="name" placeholder="Moritz" required>
+            <span class='feedback'></span>
+          </li>
+          <li>
+            <label for="password">Choose a password</label>
+            <input type="password" name="password" id="password" required>
+            <span class='feedback'></span>
+            <div id="hint">Passwords must be 8-15 characters and contain:
+              <ul>
+                <li>at least one capital letter</li>
+                <li>at least one lowercase letter</li>
+                <li>at least one number</li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <label for="verifyPassword">Re-enter your password</label>
+            <input type="password" name="verifyPassword" id="verifyPassword" required>
+            <span class='feedback'></span>
+          </li>
+          <li>
+            <button id="submitButton" type="button" class="btn btn-danger">Submit</button>
+          </li>
+        </ul>
+      </fieldset>
+    </form>
+
+
+
+  </div>
+
+  <!-- result section -->
+
+  <div id="root">
+    <div class="result py-4 d-none bg-light text-center">
+      <div class="container lead">
+        <p>You are <span class="text-danger display-4 p-3">0%</span> Blockchain Good 🙂</p>
+      </div>
+    </div>
+  
+    <!-- quiz section -->
+    <div class="quiz py-4 bg-danger" id="Questions">
+      <div class="container">
+        <h2 class="my-5 text-white">On with the questions...</h2>
+  
+        <form class="quiz-form text-light">
+          <div class="my-5">
+            <p class="lead font-weight-normal">1. Who is founder of aeternity?</p>
+            <div class="form-check my-2 text-white-50">
+              <input type="radio" name="q1" value="A" checked>
+              <label class="form-check-label">Moritz fillepe</label>
+            </div>
+            <div class="form-check my-2 text-white-50">
+              <input type="radio" name="q1" value="B">
+              <label class="form-check-label">Yanislav Malahov </label>
+            </div>
+            <div class="form-check my-2 text-white-50">
+              <input type="radio" name="q1" value="c">
+              <label class="form-check-label">Vitalik Buterin</label>
+            </div>
+          </div>
+          <div class="my-5">
+            <p class="lead font-weight-normal">2. What is the smallest unit of a bitcoin </p>
+            <div class="form-check my-2 text-white-50">
+              <input type="radio" name="q2" value="A" checked>
+              <label class="form-check-label"> Zatoshis </label>
+            </div>
+            <div class="form-check my-2 text-white-50">
+              <input type="radio" name="q2" value="B">
+              <label class="form-check-label"> satoshis </label>
+            </div>
+            <div class="form-check my-2 text-white-50">
+              <input type="radio" name="q1" value="c">
+              <label class="form-check-label"> satushis Nokotomoto </label>
+            </div>
+          </div>
+          <div class="my-5">
+            <p class="lead font-weight-normal">3. When was bitcoin invented?</p>
+            <div class="form-check my-2 text-white-50">
+              <input type="radio" name="q3" value="A" checked>
+              <label class="form-check-label"> 2009 </label>
+            </div>
+            <div class="form-check my-2 text-white-50">
+              <input type="radio" name="q3" value="B">
+              <label class="form-check-label"> 2008 </label>
+            </div>
+            <div class="form-check my-2 text-white-50">
+              <input type="radio" name="q1" value="c">
+              <label class="form-check-label"> 2008 / 2009 </label>
+            </div>
+          </div>
+          <div class="my-5">
+            <p class="lead font-weight-normal">4. When was decentral academy founded?</p>
+            <div class="form-check my-2 text-white-50">
+              <input type="radio" name="q4" value="A" checked>
+              <label class="form-check-label">2018 </label>
+            </div>
+            <div class="form-check my-2 text-white-50">
+              <input type="radio" name="q4" value="B">
+              <label class="form-check-label">2017</label>
+            </div>
+            <div class="form-check my-2 text-white-50">
+              <input type="radio" name="q1" value="C">
+              <label class="form-check-label">2019 </label>
+            </div>
+          </div>
+          <div class="text-center">
+            <input type="submit" class="btn btn-light"> 
+          </div>
+        </form>
+  
+      </div>
+    </div>
+  </div></div>
+  
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@aeternity/aepp-sdk/dist/aepp-sdk.browser-script.js"></script>
+  <script src="app.js"></script>
+  <script src="assets/js/form.js"></script>
+</body>
+</html>
