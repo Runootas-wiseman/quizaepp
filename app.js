@@ -265,7 +265,7 @@ form.addEventListener("submit", async e => {
 
 
   console.log("score updated successfully");
-
+  renderHighScore()
   $('#HighScoresBody').fadeIn()
   $('#loader').fadeOut()
 
