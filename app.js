@@ -176,6 +176,7 @@ function renderHighScore() {
   Mustache.parse(template);
   var rendered = Mustache.render(template, {HighScore});
   $('#HighScoresBody').html(rendered);
+  console.log("high score rendered")
 }
 
 window.addEventListener("load", async () => {
