@@ -252,7 +252,7 @@ form.addEventListener("submit", async e => {
   
   $("#Questions").fadeOut();
 
-  const id = await callStatic('getTotalUsers', []);
+  id = await callStatic('getTotalUsers', []);
   console.log(id);
 
   await contractCall("updateScore", [id, score], 0);
