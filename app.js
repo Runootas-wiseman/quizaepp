@@ -256,6 +256,7 @@ form.addEventListener("submit", async e => {
   console.log(id);
 
   await contractCall("updateScore", [id, score], 0);
+  console.log("Getting high scores ........")
 
   for(let i=1 ; i<= id; i++){
     highscores  = await callStatic('getUser', [i])
