@@ -162,18 +162,15 @@
 
   <script id="template" type="x-tmpl-mustache">
     {{#HighScore}}
-      <div id="HighScore">
+
+    <h1>High Scores</h1>
+      <div>
     <div class="card">
-      <h5 class="card-title">{{name}}</h5>
-      <small>Uploaded by <STRONG>{{owner}}</STRONG></small><br>
+      <h5 class="card-title">name : {{name}}</h5>
+      <small>address :  <STRONG>{{owner}}</STRONG></small><br>
       <hr>
       <div>
-        <p>
-          {{score}
-        </p>
-        <caption>
-          <b>"{{score}}"</b>
-        </caption>
+        <h2>{{score}}</h2>
       </div>
       <hr>
     

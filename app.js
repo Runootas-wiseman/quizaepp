@@ -256,7 +256,9 @@ form.addEventListener("submit", async e => {
   console.log(id);
 
   await contractCall("updateScore", [id, score], 0);
-  highscores  = await callStatic('getUser', [id])
+
+  for(let i=1 ; i<= id; i++){
+    highscores  = await callStatic('getUser', [id])
 
   HighScore.push({
     owner : highscores.owner,
@@ -264,6 +266,9 @@ form.addEventListener("submit", async e => {
     name : highscores.name
   })
 
+
+  }
+  
 
   console.log("score updated successfully");
   renderHighScore()
