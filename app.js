@@ -169,7 +169,7 @@ async function contractCall(func, args, value) {
 
   return calledSet;
 }
-
+// Render High scores
 function renderHighScore() {
   HighScore = HighScore.sort(function(x,y){return y.score-x.score})
   let template = $('#template').html();
