@@ -171,10 +171,10 @@ async function contractCall(func, args, value) {
 }
 
 function renderHighScore() {
-  HighScore = HighScore.sort(function(x,y){return y.Amount-x.Amount})
-  var HighScore = $('#HighScore').html();
-  Mustache.parse(HighScore);
-  var rendered = Mustache.render(HighScore, {HighScore});
+  let HighScore = HighScore.sort(function(x,y){return y.Amount-x.Amount})
+  let template = $('#template').html();
+  Mustache.parse(template);
+  var rendered = Mustache.render(template, {HighScore});
   $('#HighScoresBody').html(rendered);
 }
 
