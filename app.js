@@ -133,7 +133,7 @@ payable contract Quiz =
 
           `;
 
-const contractAddress = "ct_2hS4AXpbRj4bNBZ8K9ZCjtCnbuoTkVnVKuBSrQhQ7HaQhAhPeP";
+const contractAddress = "ct_PCgZrzdATZ145zFjsGkXxPknkG3xKRtoWhfbHp924SxzCCZLT";
 
 
 var client = null;
