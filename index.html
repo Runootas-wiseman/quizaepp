@@ -16,7 +16,7 @@
   <div id="scrollbar">
   <div class="intro py-3 bg-white text-center">
     <div class="container">
-      <h3 class="text-danger display-3 my-4">Blockchain Quiz</h3>
+      <h3 class="text-danger display-3 my-4">Quizify</h3>
     </div>
   </div>
   <!-- Loading animation -->
@@ -28,6 +28,8 @@
 
     <form id="form1">
       <!-- <fieldset> -->
+        <br>
+        <br>
         <legend>Sign Up</legend>
         <ul>
           <li>
@@ -69,6 +71,8 @@
 
   </div>
 
+
+  
   <!-- result section -->
 
   <div id="root">
@@ -77,6 +81,9 @@
         <p>You are <span class="text-danger display-4 p-3">0%</span> Blockchain Good 🙂</p>
       </div>
     </div>
+    <!-- High score section -->
+
+  <div id="HighScoresBody"></div>
   
     <!-- quiz section -->
     <div class="quiz py-4 bg-danger" id="Questions">
@@ -152,6 +159,34 @@
       </div>
     </div>
   </div></div>
+
+  <script id="HighScore" type="x-tmpl-mustache">
+    {{#HighScore}}
+      <div id="HighScore">
+    <div class="card">
+      <h5 class="card-title">{{name}}</h5>
+      <small>Uploaded by <STRONG>{{owner}}</STRONG></small><br>
+      <hr>
+      <div>
+        <p>
+          {{score}
+        </p>
+        <caption>
+          <b>"{{score}}"</b>
+        </caption>
+      </div>
+      <hr>
+    
+    </div>
+  </div><br>
+    {{/HighScore}}
+  </script>
+  <footer>
+<!-- <small class="footer">This Aepp was built by Tobest on the Aeternity blockchain.</small> -->
+</footer>
+</div>
+</div>
+</div>
   
   
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
