@@ -27,24 +27,40 @@ payable contract Quiz =
         password : s,
         takenCourse : b}
 
+    record highScore ={
+        id : i,
+        owner : a,
+        score : i,
+        ownerName : s}
+
     record state = {
         // Mapping users to an int
         usersById : map(i,user),
+
+        // mapping users who have completed a quiz
+        scores : map(i,highScore),
 
         // mapping users to a string
         usersByName : map(s,user),
         
         // total amount of users
-        total : i}
+        total : i,
+        totalScores : i}
 
 
 
-    entrypoint init() ={usersById = {}, usersByName = {}, total =0}
+    entrypoint init() ={usersById = {}, scores = {}, usersByName = {}, total =0, totalScores = 0}
 
 
     // returns total number of users
     entrypoint getTotalUsers() =
         state.total
+
+
+    // get total of high score users
+    entrypoint getTotalScores() =
+        state.totalScores
+
 
     // Register to take the quiz
     stateful entrypoint addUser(_name,_email,_password) =
@@ -89,6 +105,14 @@ payable contract Quiz =
         require(!user.takenCourse  == false , "You cannot take course more that once" )
         put(state{usersById[index].score = _score, usersByName[name].score = _score })
 
+        let newScore = {
+            id = getTotalScores(),
+            owner = user.owner,
+            score = _score,
+            ownerName = name }
+        put(state{scores[index] = newScore})
+
+
 
     // Allows users to take the quiz
     stateful entrypoint takeCourse(index : i) =
@@ -98,18 +122,23 @@ payable contract Quiz =
         let name = user.name
        
         let userAddress = Call.caller
+        let index = getTotalScores()+1
 
-        put(state{usersById[index].takenCourse = true , usersByName[name].takenCourse = true})
+        put(state{usersById[index].takenCourse = true , usersByName[name].takenCourse = true, totalScores = index})
 
 
+       
+        // put(state{scores})
 
 
           `;
 
-const contractAddress = "ct_2ohLCriK9g89RLGaEusWbfEsfCq7oYJVLayu3GvhkyAhmPAKH3";
+const contractAddress = "ct_PCgZrzdATZ145zFjsGkXxPknkG3xKRtoWhfbHp924SxzCCZLT";
 
 
 var client = null;
+
+var HighScore = [];
 
 async function callStatic(func, args) {
   const contract = await client.getContractInstance(contractSource, {
@@ -142,10 +171,20 @@ async function contractCall(func, args, value) {
 return calledSet;
     
 }
+// Render High scores
+function renderHighScore() {
+  HighScore = HighScore.sort(function(x,y){return y.score-x.score})
+  let template = $('#template').html();
+  Mustache.parse(template);
+  var rendered = Mustache.render(template, {HighScore});
+  $('#HighScoresBody').html(rendered);
+  console.log("high score rendered")
+}
 
 window.addEventListener("load", async () => {
   
   $('#loader').fadeIn()
+  $("#HighScoresBody").hide();
   client = await Ae.Aepp();
   
 
@@ -215,10 +254,28 @@ form.addEventListener("submit", async e => {
   
   $("#Questions").fadeOut();
 
-  const id = await callStatic('getTotalUsers', []);
+  id = await callStatic('getTotalUsers', []);
   console.log(id);
+
   await contractCall("updateScore", [id, score], 0);
+  console.log("Getting high scores ........")
+
+  for(let i=1 ; i<= id; i++){
+    highscores  = await callStatic('getUser', [i])
+
+  HighScore.push({
+    owner : highscores.owner,
+    score : highscores.score,
+    name : highscores.name
+  })
+
+
+  }
+  
+
   console.log("score updated successfully");
+  renderHighScore()
+  $('#HighScoresBody').fadeIn()
   $('#loader').fadeOut()
 
 });

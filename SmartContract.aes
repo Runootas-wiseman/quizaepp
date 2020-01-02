@@ -2,10 +2,6 @@
 //     // let total  = 0
 //     function getTotalUsers(total : int)  = 
 //         total += 1
-        
-
-
-
 payable contract Quiz = 
 
 // Declaring types
@@ -24,24 +20,40 @@ payable contract Quiz =
         password : s,
         takenCourse : b}
 
+    record highScore ={
+        id : i,
+        owner : a,
+        score : i,
+        ownerName : s}
+
     record state = {
         // Mapping users to an int
         usersById : map(i,user),
+
+        // mapping users who have completed a quiz
+        scores : map(i,highScore),
 
         // mapping users to a string
         usersByName : map(s,user),
         
         // total amount of users
-        total : i}
+        total : i,
+        totalScores : i}
 
 
 
-    entrypoint init() ={usersById = {}, usersByName = {}, total =0}
+    entrypoint init() ={usersById = {}, scores = {}, usersByName = {}, total =0, totalScores = 0}
 
 
     // returns total number of users
-    private function getTotalUsers() =
+    entrypoint getTotalUsers() =
         state.total
+
+
+    // get total of high score users
+    entrypoint getTotalScores() =
+        state.totalScores
+
 
     // Register to take the quiz
     stateful entrypoint addUser(_name,_email,_password) =
@@ -77,12 +89,22 @@ payable contract Quiz =
 
     // Update the users score
     stateful entrypoint updateScore( index : i, _score : i) =
-
         
         let user = getUser(index)
         let name = user.name
+        let score = user.score
+        require(score == 0, "Score has already been updated")
+        
         require(!user.takenCourse  == false , "You cannot take course more that once" )
         put(state{usersById[index].score = _score, usersByName[name].score = _score })
+
+        let newScore = {
+            id = getTotalScores(),
+            owner = user.owner,
+            score = _score,
+            ownerName = name }
+        put(state{scores[index] = newScore})
+
 
 
     // Allows users to take the quiz
@@ -93,20 +115,10 @@ payable contract Quiz =
         let name = user.name
        
         let userAddress = Call.caller
+        let index = getTotalScores()+1
 
-        put(state{usersById[index].takenCourse = true , usersByName[name].takenCourse = true})
-
-
-
+        put(state{usersById[index].takenCourse = true , usersByName[name].takenCourse = true, totalScores = index})
 
 
-    
- 
-        
-           
-
-
-
-
-
-
+       
+        // put(state{scores})
