@@ -124,7 +124,6 @@ async function callStatic(func, args) {
 
   const decodedGet = await calledGet.decode().catch(e => console.error(e));
 
-  return decodedGet;
 }
 
 async function contractCall(func, args, value) {
@@ -138,7 +137,7 @@ async function contractCall(func, args, value) {
     })
     .catch(e => console.error(e));
 
-  return calledSet;
+
 }
 
 window.addEventListener("load", async () => {
